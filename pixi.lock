@@ -3639,7 +3639,7 @@ packages:
 - pypi: ./
   name: gene-conservation-network
   version: 0.0.1
-  sha256: d59f7dad7f2f032c9381dcede85ae587cc89776e13fe02d3f37bae7113bae69f
+  sha256: 01d7944bf2f8a4b20f3c382ababf71c516d36eba51e52d17b9afb9a6e846eaec
   requires_python: ~=3.11.0
 - conda: https://conda.anaconda.org/conda-forge/win-64/getopt-win32-0.1-h6a83c73_3.conda
   sha256: d04c4a6c11daa72c4a0242602e1d00c03291ef66ca2d7cd0e171088411d57710

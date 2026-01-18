@@ -2,7 +2,7 @@
 requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
-[workspace]
+[project]
 name = "gene_conservation_network"
 version = "0.0.1"
 description = "A side project to explore the network properties of conserved genes"
