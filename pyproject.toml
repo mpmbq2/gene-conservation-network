@@ -1,0 +1,63 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[workspace]
+name = "gene_conservation_network"
+version = "0.0.1"
+description = "A side project to explore the network properties of conserved genes"
+authors = [
+  { name = "Matt McCabe" },
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License"
+]
+requires-python = "~=3.11.0"
+
+
+[tool.ruff]
+line-length = 99
+src = ["gene_conservation_network"]
+include = ["pyproject.toml", "gene_conservation_network/**/*.py"]
+
+[tool.ruff.lint]
+extend-select = ["I"]  # Add import sorting
+
+[tool.ruff.lint.isort]
+known-first-party = ["gene_conservation_network"]
+force-sort-within-sections = true
+
+
+[tool.pixi.workspace]
+name = "gene-conservation-network"
+description = "A side project to explore the network properties of conserved genes"
+version = "0.1.0"
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
+
+[tool.pixi.dependencies]
+python = "~=3.11.0"
+ipython = "*"
+jupyterlab = "*"
+loguru = "*"
+matplotlib = "*"
+notebook = "*"
+numpy = "*"
+pandas = "*"
+pytest = "*"
+ruff = "*"
+scikit-learn = "*"
+tqdm = "*"
+typer = "*"
+pip = "*"
+dvc = ">=3.66.1,<4"
+
+[tool.pixi.pypi-dependencies]
+python-dotenv = "*"
+
+[tool.pixi.pypi-dependencies.gene_conservation_network]
+path = "."
+editable = true
