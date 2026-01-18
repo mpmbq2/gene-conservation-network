@@ -1,0 +1,19 @@
+stages:
+  extract_wormhole_data:
+    cmd: pixi run python scripts/extract_wormhole_data.py
+    deps:
+      - scripts/extract_wormhole_data.py
+      - params.yaml
+    params:
+      - extract_wormhole_data.base_url
+      - extract_wormhole_data.data_url
+      - extract_wormhole_data.output_dir
+      - extract_wormhole_data.files_to_download
+    outs:
+      - data/01_raw/wormhole_extracts/WORMHOLE-canonical-IDs.tar.gz
+      - data/01_raw/wormhole_extracts/WORMHOLE-aliases.tar.gz
+      - data/01_raw/wormhole_extracts/PANTHER-LDO-ortholog-pairs.tar.gz
+      - data/01_raw/wormhole_extracts/WHRefOGs.tar.gz
+      - data/01_raw/wormhole_extracts/WORMHOLE-ortholog-pairs.tar.gz
+    metrics:
+      - data/01_raw/wormhole_extracts/download_log.json

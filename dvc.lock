@@ -1,0 +1,49 @@
+schema: '2.0'
+stages:
+  extract_wormhole_data:
+    cmd: pixi run python scripts/extract_wormhole_data.py
+    deps:
+    - path: params.yaml
+      hash: md5
+      md5: b5be4ae7fda78014301875dc6cdd3395
+      size: 356
+    - path: scripts/extract_wormhole_data.py
+      hash: md5
+      md5: 005db91c6e7636e83c9d4ca4b98c02f6
+      size: 5748
+    params:
+      params.yaml:
+        extract_wormhole_data.base_url: https://wormhole.jax.org
+        extract_wormhole_data.data_url: https://wormhole.jax.org/static/data/
+        extract_wormhole_data.files_to_download:
+        - WORMHOLE-canonical-IDs.tar.gz
+        - WORMHOLE-aliases.tar.gz
+        - PANTHER-LDO-ortholog-pairs.tar.gz
+        - WHRefOGs.tar.gz
+        - WORMHOLE-ortholog-pairs.tar.gz
+        extract_wormhole_data.output_dir: data/01_raw/wormhole_extracts
+    outs:
+    - path: data/01_raw/wormhole_extracts/PANTHER-LDO-ortholog-pairs.tar.gz
+      hash: md5
+      md5: 7ec415bd70c39b75bee21099f56618de
+      size: 6853632
+    - path: data/01_raw/wormhole_extracts/WHRefOGs.tar.gz
+      hash: md5
+      md5: 0eeb99d50eabe7a50ab9050fa68c8c54
+      size: 213504
+    - path: data/01_raw/wormhole_extracts/WORMHOLE-aliases.tar.gz
+      hash: md5
+      md5: ea309eb95106655fa7bf6623b3a4ca61
+      size: 98428928
+    - path: data/01_raw/wormhole_extracts/WORMHOLE-canonical-IDs.tar.gz
+      hash: md5
+      md5: d0a5233f71b2660460f0a7bdd67e2d23
+      size: 3781632
+    - path: data/01_raw/wormhole_extracts/WORMHOLE-ortholog-pairs.tar.gz
+      hash: md5
+      md5: 95202ffd9680c6389bb70a13ba5963b1
+      size: 1233839616
+    - path: data/01_raw/wormhole_extracts/download_log.json
+      hash: md5
+      md5: 7e6d88a1d7c478998b30aef6fbc011de
+      size: 2208
