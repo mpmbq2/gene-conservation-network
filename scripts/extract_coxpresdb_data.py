@@ -17,14 +17,14 @@ from loguru import logger
 
 # Paths
 PROJ_ROOT = Path(__file__).resolve().parents[1]
-PARAMS_PATH = PROJ_ROOT / "params.yaml"
+PARAMS_PATH = PROJ_ROOT / "params/extract_coxpresdb_data.yaml"
 
 def load_config():
-    """Load configuration from params.yaml."""
+    """Load configuration from params/extract_coxpresdb_data.yaml."""
     if PARAMS_PATH.exists():
         with open(PARAMS_PATH, 'r') as f:
             config = yaml.safe_load(f)
-        return config.get('extract_coxpresdb_data', {})
+        return config
     else:
         logger.error(f"Config file not found: {PARAMS_PATH}")
         return {}

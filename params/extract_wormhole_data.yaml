@@ -1,0 +1,9 @@
+base_url: "https://wormhole.jax.org"
+data_url: "https://wormhole.jax.org/static/data/"
+output_dir: "data/01_raw/wormhole_extracts"
+files_to_download:
+  - "WORMHOLE-canonical-IDs.tar.gz"
+  - "WORMHOLE-aliases.tar.gz"
+  - "PANTHER-LDO-ortholog-pairs.tar.gz"
+  - "WHRefOGs.tar.gz"
+  - "WORMHOLE-ortholog-pairs.tar.gz"

@@ -45,5 +45,5 @@ stages:
       size: 1233839616
     - path: data/01_raw/wormhole_extracts/download_log.json
       hash: md5
-      md5: 77d0e1c0ef9b25c2d34e5e1a0d3baab2
+      md5: 622bb86cffba8b46e922b71e74495f26
       size: 2208

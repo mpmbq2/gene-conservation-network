@@ -3,12 +3,13 @@ stages:
     cmd: pixi run python scripts/extract_wormhole_data.py
     deps:
       - scripts/extract_wormhole_data.py
-      - params.yaml
+      - params/extract_wormhole_data.yaml
     params:
-      - extract_wormhole_data.base_url
-      - extract_wormhole_data.data_url
-      - extract_wormhole_data.output_dir
-      - extract_wormhole_data.files_to_download
+      - params/extract_wormhole_data.yaml:
+          - base_url
+          - data_url
+          - output_dir
+          - files_to_download
     outs:
       - data/01_raw/wormhole_extracts/WORMHOLE-canonical-IDs.tar.gz
       - data/01_raw/wormhole_extracts/WORMHOLE-aliases.tar.gz
@@ -22,10 +23,11 @@ stages:
     cmd: pixi run python scripts/extract_coxpresdb_data.py
     deps:
       - scripts/extract_coxpresdb_data.py
-      - params.yaml
+      - params/extract_coxpresdb_data.yaml
     params:
-      - extract_coxpresdb_data.base_url
-      - extract_coxpresdb_data.output_dir
-      - extract_coxpresdb_data.files_to_download
+      - params/extract_coxpresdb_data.yaml:
+          - base_url
+          - output_dir
+          - files_to_download
     outs:
       - data/01_raw/coxpresdb_extracts/

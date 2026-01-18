@@ -19,18 +19,18 @@ from tqdm import tqdm
 
 
 def load_config():
-    """Load configuration from params.yaml."""
-    params_file = Path("params.yaml")
+    """Load configuration from params/extract_wormhole_data.yaml."""
+    params_file = Path("params/extract_wormhole_data.yaml")
     if params_file.exists():
         with open(params_file, 'r') as f:
             config = yaml.safe_load(f)
-        return config['extract_wormhole_data']
+        return config
     else:
-        # Fallback to hardcoded values if params.yaml doesn't exist
+        # Fallback to hardcoded values if params/extract_wormhole_data.yaml doesn't exist
         return {
             "base_url": "https://wormhole.jax.org",
             "data_url": "https://wormhole.jax.org/static/data/",
-            "output_dir": "data/01_raw",
+            "output_dir": "data/01_raw/wormhole_extracts",
             "files_to_download": [
                 "WORMHOLE-canonical-IDs.tar.gz",
                 "WORMHOLE-aliases.tar.gz", 
