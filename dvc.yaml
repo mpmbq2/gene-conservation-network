@@ -17,3 +17,15 @@ stages:
       - data/01_raw/wormhole_extracts/WORMHOLE-ortholog-pairs.tar.gz
     metrics:
       - data/01_raw/wormhole_extracts/download_log.json
+
+  extract_coxpresdb_data:
+    cmd: pixi run python scripts/extract_coxpresdb_data.py
+    deps:
+      - scripts/extract_coxpresdb_data.py
+      - params.yaml
+    params:
+      - extract_coxpresdb_data.base_url
+      - extract_coxpresdb_data.output_dir
+      - extract_coxpresdb_data.files_to_download
+    outs:
+      - data/01_raw/coxpresdb_extracts/

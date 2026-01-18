@@ -5,8 +5,8 @@ stages:
     deps:
     - path: params.yaml
       hash: md5
-      md5: b5be4ae7fda78014301875dc6cdd3395
-      size: 356
+      md5: dbaeee3803d2b9cbb7738e2e89f8b8c8
+      size: 4132
     - path: scripts/extract_wormhole_data.py
       hash: md5
       md5: 005db91c6e7636e83c9d4ca4b98c02f6
@@ -45,5 +45,5 @@ stages:
       size: 1233839616
     - path: data/01_raw/wormhole_extracts/download_log.json
       hash: md5
-      md5: 7e6d88a1d7c478998b30aef6fbc011de
+      md5: 77d0e1c0ef9b25c2d34e5e1a0d3baab2
       size: 2208
