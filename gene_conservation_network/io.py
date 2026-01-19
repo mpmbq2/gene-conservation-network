@@ -3,7 +3,8 @@ from zipfile import ZipFile
 
 from loguru import logger
 import pandas as pd
-import pandera as pa
+import pandera.pandas as pa
+from pandera.typing.pandas import DataFrame
 from tqdm import tqdm
 
 
@@ -16,12 +17,13 @@ class CoexpressionSchema(pa.DataFrameModel):
         strict = True
 
 
+@pa.check_types
 def load_coxpresdb_coexpression(
     species: str,
     modality: str,
     data_dir: Path,
     version: str | None = None,
-) -> pd.DataFrame:
+) -> DataFrame[CoexpressionSchema]:
     """
     Load COXPRESdb gene coexpression data.
 
@@ -106,9 +108,6 @@ def load_coxpresdb_coexpression(
 
     # Create DataFrame
     df = pd.DataFrame(records)
-
-    # Validate with pandera
-    CoexpressionSchema.validate(df)
 
     return df
 
