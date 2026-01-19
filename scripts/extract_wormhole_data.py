@@ -10,10 +10,11 @@ import json
 import tarfile
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict
 from urllib.parse import urljoin
 
 import requests
+from loguru import logger
 import yaml
 from tqdm import tqdm
 
@@ -72,7 +73,7 @@ def download_file(url: str, destination: Path) -> bool:
         
         return True
     except Exception as e:
-        print(f"Error downloading {url}: {e}")
+        logger.error("Error downloading {}: {}", url, e)
         return False
 
 
@@ -80,7 +81,7 @@ def extract_archive(archive_path: Path) -> bool:
     """Extract a tar archive to the same directory."""
     try:
         # Try different tar formats
-        modes = ['r:gz', 'r:bz2', 'r:xz', 'r']
+        modes = ('r:gz', 'r:bz2', 'r:xz', 'r')
         for mode in modes:
             try:
                 with tarfile.open(archive_path, mode) as tar:
@@ -91,7 +92,7 @@ def extract_archive(archive_path: Path) -> bool:
                 continue
         raise tarfile.ReadError("Could not read tar archive with any supported format")
     except Exception as e:
-        print(f"Error extracting {archive_path}: {e}")
+        logger.error("Error extracting {}: {}", archive_path, e)
         return False
 
 
@@ -106,14 +107,14 @@ def get_file_info(url: str) -> Dict:
             "last_modified": response.headers.get('last-modified')
         }
     except Exception as e:
-        print(f"Error getting file info for {url}: {e}")
+        logger.error("Error getting file info for {}: {}", url, e)
         return {}
 
 
 def main():
     """Main extraction function."""
-    print("WORMHOLE Data Extraction Script")
-    print("=" * 40)
+    logger.info("WORMHOLE Data Extraction Script")
+    logger.info("{}", "=" * 40)
     
     # Ensure output directory exists
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -134,24 +135,24 @@ def main():
         url = urljoin(DATA_URL, filename)
         file_path = OUTPUT_DIR / filename
         
-        print(f"\nProcessing: {filename}")
-        print(f"URL: {url}")
+        logger.info("Processing: {}", filename)
+        logger.info("URL: {}", url)
         
         # Get file info
         file_info = get_file_info(url)
         
         # Download file
         if download_file(url, file_path):
-            print(f"✓ Downloaded: {filename}")
-            
+            logger.info("Downloaded: {}", filename)
+
             # Extract archive
             if extract_archive(file_path):
-                print(f"✓ Extracted: {filename}")
+                logger.info("Extracted: {}", filename)
                 successful_downloads += 1
             else:
-                print(f"✗ Failed to extract: {filename}")
+                logger.error("Failed to extract: {}", filename)
         else:
-            print(f"✗ Failed to download: {filename}")
+            logger.error("Failed to download: {}", filename)
         
         # Log file information
         file_log = {
@@ -168,20 +169,24 @@ def main():
         json.dump(download_log, f, indent=2)
     
     # Summary
-    print(f"\n" + "=" * 40)
-    print(f"Extraction Complete!")
-    print(f"Successfully processed: {successful_downloads}/{total_files} files")
-    print(f"Output directory: {OUTPUT_DIR}")
-    print(f"Log file: {LOG_FILE}")
-    
+    logger.info("{}", "=" * 40)
+    logger.info("Extraction Complete!")
+    logger.info(
+        "Successfully processed: {}/{} files",
+        successful_downloads,
+        total_files,
+    )
+    logger.info("Output directory: {}", OUTPUT_DIR)
+    logger.info("Log file: {}", LOG_FILE)
+
     # List extracted contents
-    print(f"\nExtracted contents:")
+    logger.info("Extracted contents:")
     for item in OUTPUT_DIR.iterdir():
         if item.is_dir():
             file_count = len(list(item.iterdir()))
-            print(f"  📁 {item.name}/ ({file_count} files)")
+            logger.info("  Directory {} ({} files)", item.name, file_count)
         elif item.suffix == '.json':
-            print(f"  📄 {item.name}")
+            logger.info("  File {}", item.name)
 
 
 if __name__ == "__main__":

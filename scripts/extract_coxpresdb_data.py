@@ -10,10 +10,11 @@ import json
 from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlparse
-import yaml
+
 import requests
-from tqdm import tqdm
 from loguru import logger
+from tqdm import tqdm
+import yaml
 
 # Paths
 PROJ_ROOT = Path(__file__).resolve().parents[1]
@@ -26,7 +27,7 @@ def load_config():
             config = yaml.safe_load(f)
         return config
     else:
-        logger.error(f"Config file not found: {PARAMS_PATH}")
+        logger.error("Config file not found: {}", PARAMS_PATH)
         return {}
 
 def get_filename_from_url(url: str) -> str:
@@ -45,7 +46,10 @@ def download_file(url: str, destination: Path) -> bool:
         # Check if file already exists and has the same size
         if destination.exists() and total_size > 0:
             if destination.stat().st_size == total_size:
-                logger.info(f"Skipping {destination.name} (already exists and size matches)")
+                logger.info(
+                    "Skipping {} (already exists and size matches)",
+                    destination.name,
+                )
                 return True
 
         with open(destination, 'wb') as f, tqdm(
@@ -61,7 +65,7 @@ def download_file(url: str, destination: Path) -> bool:
                     pbar.update(len(chunk))
         return True
     except Exception as e:
-        logger.error(f"Failed to download {url}: {e}")
+        logger.error("Failed to download {}: {}", url, e)
         if destination.exists():
             destination.unlink()  # Remove partial file
         return False
@@ -78,8 +82,8 @@ def main():
     output_dir = Path(PROJ_ROOT) / config.get("output_dir", "data/01_raw/coxpresdb_extracts")
     files_to_download = config.get("files_to_download", [])
 
-    logger.info(f"Output directory: {output_dir}")
-    logger.info(f"Found {len(files_to_download)} files to download")
+    logger.info("Output directory: {}", output_dir)
+    logger.info("Found {} files to download", len(files_to_download))
 
     # Ensure output directory exists
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -97,7 +101,7 @@ def main():
         filename = get_filename_from_url(url)
         file_path = output_dir / filename
         
-        logger.info(f"Processing: {filename}")
+        logger.info("Processing: {}", filename)
         
         if download_file(url, file_path):
             successful_downloads += 1
@@ -120,8 +124,12 @@ def main():
         json.dump(download_log, f, indent=2)
     
     logger.info("Extraction Complete!")
-    logger.info(f"Successfully processed: {successful_downloads}/{len(files_to_download)} files")
-    logger.info(f"Log file: {log_file}")
+    logger.info(
+        "Successfully processed: {}/{} files",
+        successful_downloads,
+        len(files_to_download),
+    )
+    logger.info("Log file: {}", log_file)
 
 if __name__ == "__main__":
     main()
