@@ -78,7 +78,7 @@ We use `ruff` for linting and formatting, and `pytest` for testing. Tasks are de
 
 ### General Python
 
--   **Version**: Python 3.11+.
+-   **Version**: Python 3.11+ (specifically `~=3.11.0`).
 -   **Naming**:
     -   Variables/Functions: `snake_case`
     -   Classes: `PascalCase`
@@ -106,14 +106,16 @@ We use `ruff` for linting and formatting, and `pytest` for testing. Tasks are de
     from loguru import logger
 
     logger.info("Starting processing...")
-    logger.error("An error occurred", exc_info=True)
+    logger.success("Processing complete.")  # Use success for completion messages
+    logger.error("An error occurred: {}", error_msg)  # Prefer {} placeholders
     ```
 -   **Progress Bars**: Use `tqdm` for loops that take time.
     ```python
     from tqdm import tqdm
-    for item in tqdm(items):
+    for item in tqdm(items, desc="Processing items"):
         process(item)
     ```
+-   **Logger Configuration**: `loguru` is integrated with `tqdm` in `config.py` - no additional setup needed.
 
 ### CLI Applications
 
