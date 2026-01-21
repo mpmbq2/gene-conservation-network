@@ -105,3 +105,34 @@ stages:
       md5: 8c7ff1c6eac821a854d713c4fa424874.dir
       size: 31830765117
       nfiles: 35
+  transform_coxpresdb_data:
+    cmd: pixi run python scripts/transform_coxpresdb_data.py
+    deps:
+    - path: data/01_raw/coxpresdb_extracts/
+      hash: md5
+      md5: 8c7ff1c6eac821a854d713c4fa424874.dir
+      size: 31830765117
+      nfiles: 35
+    - path: params/transform_coxpresdb_data.yaml
+      hash: md5
+      md5: 2d3726c5b0a8f3635ab98252faf16215
+      size: 110
+    - path: scripts/transform_coxpresdb_data.py
+      hash: md5
+      md5: 697b9eafb014385f51d42905bdd31857
+      size: 7452
+    params:
+      params/transform_coxpresdb_data.yaml:
+        compression: snappy
+        input_dir: data/01_raw/coxpresdb_extracts
+        output_dir: data/02_transformed/coxpresdb
+    outs:
+    - path: data/02_transformed/coxpresdb/
+      hash: md5
+      md5: d46239644bf9513654d510f8b5f42827.dir
+      size: 51077900184
+      nfiles: 486047
+    - path: data/02_transformed/transform_log.json
+      hash: md5
+      md5: b8011a5637e5337bf682d7ef3da4296e
+      size: 6817

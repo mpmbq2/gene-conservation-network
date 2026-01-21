@@ -31,3 +31,20 @@ stages:
           - files_to_download
     outs:
       - data/01_raw/coxpresdb_extracts/
+
+  transform_coxpresdb_data:
+    cmd: pixi run python scripts/transform_coxpresdb_data.py
+    deps:
+      - scripts/transform_coxpresdb_data.py
+      - params/transform_coxpresdb_data.yaml
+      - data/01_raw/coxpresdb_extracts/
+    params:
+      - params/transform_coxpresdb_data.yaml:
+          - input_dir
+          - output_dir
+          - compression
+    outs:
+      - data/02_transformed/coxpresdb/
+    metrics:
+      - data/02_transformed/transform_log.json:
+          cache: false

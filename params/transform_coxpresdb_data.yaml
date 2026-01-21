@@ -1,0 +1,3 @@
+input_dir: "data/01_raw/coxpresdb_extracts"
+output_dir: "data/02_transformed/coxpresdb"
+compression: "snappy"
