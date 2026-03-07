@@ -1,6 +1,6 @@
 import pandas as pd
 
-from gene_conservation_network.io import CoexpressionSchema
+from gene_conservation_network.schemas import CoexpressionSchema
 
 
 def test_coexpression_schema_validation():

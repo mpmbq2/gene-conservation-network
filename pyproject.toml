@@ -60,6 +60,12 @@ beautifulsoup4 = ">=4.14.3,<5"
 marimo = ">=0.19.4,<0.20"
 seaborn = ">=0.13.2,<0.14"
 pyarrow = ">=22.0.0,<23"
+duckdb = ">=1.4.3,<2"
+polars = ">=1.37.1,<2"
+sqlglot = ">=28.6.0,<29"
+python-lsp-server = ">=1.14.0,<2"
+rustworkx = ">=0.15,<1"
+scipy = ">=1.11,<2"
 
 [tool.pixi.pypi-dependencies]
 python-dotenv = "*"
@@ -73,3 +79,4 @@ clean = "find . -type f -name '*.py[co]' -delete && find . -type d -name '__pyca
 lint = "ruff format --check && ruff check"
 format = "ruff check --fix && ruff format"
 test = "pytest tests"
+marimo_editor = "marimo edit --host '0.0.0.0' --headless --no-token"

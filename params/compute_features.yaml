@@ -1,0 +1,47 @@
+species:
+  - Cel
+  - Dme
+  - Dre
+  - Hsa
+  - Mmu
+  - Sce
+
+variant: u
+
+thresholds:
+  - 3
+  - 4
+  - 5
+  - 6
+
+species_pairs:
+  - cedm
+  - cedr
+  - cehs
+  - cemm
+  - cesc
+  - dmce
+  - dmdr
+  - dmhs
+  - dmmm
+  - dmsc
+  - drce
+  - drdm
+  - drhs
+  - drmm
+  - drsc
+  - hsce
+  - hsdm
+  - hsdr
+  - hsmm
+  - hssc
+  - mmce
+  - mmdm
+  - mmdr
+  - mmhs
+  - mmsc
+  - scce
+  - scdm
+  - scdr
+  - schs
+  - scmm

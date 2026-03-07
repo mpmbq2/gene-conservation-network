@@ -48,3 +48,47 @@ stages:
     metrics:
       - data/02_transformed/transform_log.json:
           cache: false
+
+  compute_network_features:
+    cmd: pixi run python scripts/compute_network_features.py
+    deps:
+      - scripts/compute_network_features.py
+      - gene_conservation_network/features/network.py
+      - gene_conservation_network/data/coexpression.py
+      - data/02_transformed/coxpresdb/
+    params:
+      - params/compute_features.yaml:
+          - species
+          - variant
+          - thresholds
+    outs:
+      - data/03_features/network/
+
+  compute_ortholog_features:
+    cmd: pixi run python scripts/compute_ortholog_features.py
+    deps:
+      - scripts/compute_ortholog_features.py
+      - gene_conservation_network/features/ortholog_features.py
+      - gene_conservation_network/data/orthologs.py
+      - data/01_raw/wormhole_extracts/
+    params:
+      - params/compute_features.yaml:
+          - species_pairs
+    outs:
+      - data/03_features/orthologs/
+
+  merge_features:
+    cmd: pixi run python scripts/merge_features.py
+    deps:
+      - scripts/merge_features.py
+      - gene_conservation_network/analysis/correlation.py
+      - gene_conservation_network/data/gene_ids.py
+      - data/03_features/
+      - data/01_raw/wormhole_extracts/
+    params:
+      - params/compute_features.yaml:
+          - species_pairs
+          - thresholds
+          - variant
+    outs:
+      - data/04_merged/

@@ -11,7 +11,7 @@ from loguru import logger
 from tqdm import tqdm
 
 from gene_conservation_network.config import PROJ_ROOT
-from gene_conservation_network.io import CoexpressionSchema
+from gene_conservation_network.schemas import CoexpressionSchema
 
 
 def load_config(config_path: Path) -> dict:
