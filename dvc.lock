@@ -119,8 +119,8 @@ stages:
       size: 110
     - path: scripts/transform_coxpresdb_data.py
       hash: md5
-      md5: 697b9eafb014385f51d42905bdd31857
-      size: 7452
+      md5: 3e9b2bc6e0a24bd11ce49a1e9e5cc393
+      size: 7457
     params:
       params/transform_coxpresdb_data.yaml:
         compression: snappy
@@ -134,5 +134,175 @@ stages:
       nfiles: 486047
     - path: data/02_transformed/transform_log.json
       hash: md5
-      md5: b8011a5637e5337bf682d7ef3da4296e
-      size: 6817
+      md5: 4e462a3bc7cf1de35cf00b368beb6037
+      size: 6816
+  compute_network_features:
+    cmd: pixi run python scripts/compute_network_features.py
+    deps:
+    - path: data/02_transformed/coxpresdb/
+      hash: md5
+      md5: d46239644bf9513654d510f8b5f42827.dir
+      size: 51077900184
+      nfiles: 486047
+    - path: gene_conservation_network/data/coexpression.py
+      hash: md5
+      md5: 9a786573452b32222abc0e4ac29543c0
+      size: 4640
+    - path: gene_conservation_network/features/network.py
+      hash: md5
+      md5: 4184b3ee4d7332a8aaaabd3e82b27c45
+      size: 7970
+    - path: scripts/compute_network_features.py
+      hash: md5
+      md5: fcd459684c5fba8968d08ffaf73a3391
+      size: 2164
+    params:
+      params/compute_features.yaml:
+        species:
+        - Cel
+        - Dme
+        - Dre
+        - Hsa
+        - Mmu
+        - Sce
+        thresholds:
+        - 3
+        - 4
+        - 5
+        - 6
+        variant: u
+    outs:
+    - path: data/03_features/network/
+      hash: md5
+      md5: 928bc07009507061a46b4a50aa549b31.dir
+      size: 12238633
+      nfiles: 24
+  compute_ortholog_features:
+    cmd: pixi run python scripts/compute_ortholog_features.py
+    deps:
+    - path: data/01_raw/wormhole_extracts/
+      hash: md5
+      md5: 0b8f3be615a11e11058d0e029546337d.dir
+      size: 2686195375
+      nfiles: 52
+    - path: gene_conservation_network/data/orthologs.py
+      hash: md5
+      md5: 628673a99e522e80bd007b153ea85ead
+      size: 3202
+    - path: gene_conservation_network/features/ortholog_features.py
+      hash: md5
+      md5: e4095d5a1ea49b1676a8767e147beabb
+      size: 4945
+    - path: scripts/compute_ortholog_features.py
+      hash: md5
+      md5: 7825ec0551ee81ba114db9f9e1382340
+      size: 2012
+    params:
+      params/compute_features.yaml:
+        species_pairs:
+        - cedm
+        - cedr
+        - cehs
+        - cemm
+        - cesc
+        - dmce
+        - dmdr
+        - dmhs
+        - dmmm
+        - dmsc
+        - drce
+        - drdm
+        - drhs
+        - drmm
+        - drsc
+        - hsce
+        - hsdm
+        - hsdr
+        - hsmm
+        - hssc
+        - mmce
+        - mmdm
+        - mmdr
+        - mmhs
+        - mmsc
+        - scce
+        - scdm
+        - scdr
+        - schs
+        - scmm
+    outs:
+    - path: data/03_features/orthologs/
+      hash: md5
+      md5: 86537b80ae851a96a68853db66276620.dir
+      size: 7620477
+      nfiles: 30
+  merge_features:
+    cmd: pixi run python scripts/merge_features.py
+    deps:
+    - path: data/01_raw/wormhole_extracts/
+      hash: md5
+      md5: 0b8f3be615a11e11058d0e029546337d.dir
+      size: 2686195375
+      nfiles: 52
+    - path: data/03_features/
+      hash: md5
+      md5: 11aabc7f1d6f14279f83216fe0cbbd26.dir
+      size: 19859110
+      nfiles: 54
+    - path: gene_conservation_network/analysis/correlation.py
+      hash: md5
+      md5: 1af05d1793d1bbc623f3036f1e7d2ceb
+      size: 5519
+    - path: gene_conservation_network/data/gene_ids.py
+      hash: md5
+      md5: 411098bf2b7a14f905b9e405de31b226
+      size: 7461
+    - path: scripts/merge_features.py
+      hash: md5
+      md5: ac2d158c51394408695d4fbc05d266f7
+      size: 3055
+    params:
+      params/compute_features.yaml:
+        species_pairs:
+        - cedm
+        - cedr
+        - cehs
+        - cemm
+        - cesc
+        - dmce
+        - dmdr
+        - dmhs
+        - dmmm
+        - dmsc
+        - drce
+        - drdm
+        - drhs
+        - drmm
+        - drsc
+        - hsce
+        - hsdm
+        - hsdr
+        - hsmm
+        - hssc
+        - mmce
+        - mmdm
+        - mmdr
+        - mmhs
+        - mmsc
+        - scce
+        - scdm
+        - scdr
+        - schs
+        - scmm
+        thresholds:
+        - 3
+        - 4
+        - 5
+        - 6
+        variant: u
+    outs:
+    - path: data/04_merged/
+      hash: md5
+      md5: 8abc7787220913dc0939b9afa167f21a.dir
+      size: 64254167
+      nfiles: 120
