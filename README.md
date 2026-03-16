@@ -1,5 +1,34 @@
 # gene-conservation-network
 
+## Using this repo
+
+To use this repo, first install pixi:
+
+```bash
+curl -fsSL https://pixi.sh/install.sh | sh
+```
+
+Then activate the pixi environment:
+
+```bash
+pixi shell
+```
+
+Then reproduce the result with:
+
+```bash
+dvc repro
+```
+
+Finally, view the results with marimo:
+
+```bash
+marimo edit notebooks/2026-03-08_Hypothesis-Evaluation.py
+```
+
+## Other Repo Details
+
+
 <a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
 </a>
